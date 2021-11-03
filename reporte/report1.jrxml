@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7f1e71fe-4a4c-4f35-95a9-4186d2842780">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select placa_vehiculo, CAST(sum(total_alquiler) AS NUMERIC) as dinero_generado, count(alq.id_alquiler) as Veces_alquilado
+from alquiler alq
+inner join vehiculo vhl on alq.id_vehiculo = vhl.id_vehiculo
+group by vhl.id_vehiculo;]]>
+	</queryString>
+	<field name="placa_vehiculo" class="java.lang.String"/>
+	<field name="dinero_generado" class="java.math.BigDecimal"/>
+	<field name="veces_alquilado" class="java.lang.Long"/>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="153" y="0" width="281" height="38" uuid="c242825b-a20f-4a28-ad72-1122f957ada3"/>
+				<textElement>
+					<font size="30"/>
+				</textElement>
+				<text><![CDATA[Reporte de Ingresos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="75" splitType="Stretch">
+			<staticText>
+				<reportElement x="27" y="54" width="100" height="20" uuid="03787427-4624-4e79-9f26-4c1786be68a4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Placa Vehículo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="191" y="54" width="136" height="20" uuid="3bac7ca2-119f-48e4-961e-e054752548ff"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Número de alquileres]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="54" width="100" height="20" uuid="a02eb019-c9bc-4751-9b95-929aa946cdd4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ingreso Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="4" width="535" height="36" uuid="e3810407-75e1-4936-9e7e-7c01940d5343"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD DE DINERO QUE HA REPRESENTADO CADA AUTOMOVIL PARA LA EMPRESA "FAST CAR"]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement x="27" y="15" width="100" height="20" uuid="7c108a3f-2501-4aa4-8f43-5b96e37b8f9d"/>
+				<textFieldExpression><![CDATA[$F{placa_vehiculo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="15" width="100" height="20" uuid="26fc54e0-8c81-470e-9ff0-dfbf681ed52e"/>
+				<textFieldExpression><![CDATA[$F{veces_alquilado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="15" width="100" height="20" uuid="f2fb9cb0-81d8-4236-a66f-da0cb50bdf8d"/>
+				<textFieldExpression><![CDATA[$F{dinero_generado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="129">
+			<barChart>
+				<chart>
+					<reportElement x="0" y="-173" width="555" height="281" uuid="4b7a52da-6672-401f-ba51-5ed6b481a287"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Dinero Generado"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{placa_vehiculo}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{dinero_generado}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+			<staticText>
+				<reportElement x="208" y="108" width="150" height="20" uuid="5f2c0b6a-9719-4a13-8898-6d4ac7977df8"/>
+				<text><![CDATA[Todos los derechos reservados]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+</jasperReport>
