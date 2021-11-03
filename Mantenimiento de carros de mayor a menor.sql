@@ -1,0 +1,12 @@
+/*
+Histórico de mantenimiento de carros ordenados de mayor a menor, la cantidad de mantenimiento indica que carro cambiar
+*/
+-----------------------------------------
+--matenimiento de carros de mayor a menor
+-----------------------------------------
+SELECT NOMBRE_MARCA AS MARCA, NOMBRE_MODELO AS MODELO, PLACA_VEHICULO, COUNT(ID_MANTENIMIENTO) AS CANTIDAD_MANTENIMIENTO FROM MANTENIMIENTO MTN
+INNER JOIN VEHICULO VHL ON VHL.ID_VEHICULO = MTN.ID_VEHICULO
+INNER JOIN MARCA_VEHICULO MARCA ON MARCA.ID_MARCA = VHL.ID_MARCA
+INNER JOIN MODELO_VEHICULO MODEL ON MODEL.ID_MODELO = VHL.ID_MODELO
+GROUP BY VHL.ID_VEHICULO, MARCA.ID_MARCA, MODEL.ID_MODELO 
+ORDER BY CANTIDAD_MANTENIMIENTO DESC;
