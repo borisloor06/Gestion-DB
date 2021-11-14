@@ -1,118 +1,7 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 8                                 */
-/* Created on:     30/10/2021 13:28:38                          */
+/* Created on:     13/11/2021 21:50:49                          */
 /*==============================================================*/
-
-
-drop index RELATIONSHIP_28_FK;
-
-drop index RELATIONSHIP_17_FK;
-
-drop index RELATIONSHIP_15_FK;
-
-drop index RELATIONSHIP_10_FK;
-
-drop index ALQUILER_PK;
-
-drop table ALQUILER;
-
-drop index AUSPICIANTE_CREDITICIO_PK;
-
-drop table AUSPICIANTE_CREDITICIO;
-
-drop index CIUDAD_PK;
-
-drop table CIUDAD;
-
-drop index RELATIONSHIP_23_FK;
-
-drop index RELATIONSHIP_19_FK;
-
-drop index RELATIONSHIP_21_FK;
-
-drop index RELATIONSHIP_7_FK;
-
-drop index CLIENTE_PK;
-
-drop table CLIENTE;
-
-drop index COLOR_PK;
-
-drop table COLOR;
-
-drop index RELATIONSHIP_20_FK;
-
-drop index RELATIONSHIP_14_FK;
-
-drop index EMPLEADO_PK;
-
-drop table EMPLEADO;
-
-drop index GENERO_PK;
-
-drop table GENERO;
-
-drop index RELATIONSHIP_18_FK;
-
-drop index LUGAR_DE_MANTENIMIENTO_PK;
-
-drop table LUGAR_DE_MANTENIMIENTO;
-
-drop index RELATIONSHIP_16_FK;
-
-drop index RELATIONSHIP_5_FK;
-
-drop index RELATIONSHIP_4_FK;
-
-drop index MANTENIMIENTO_PK;
-
-drop table MANTENIMIENTO;
-
-drop index MARCA_VEHICULO_PK;
-
-drop table MARCA_VEHICULO;
-
-drop index MODELO_VEHICULO_PK;
-
-drop table MODELO_VEHICULO;
-
-drop index RELATIONSHIP_27_FK;
-
-drop index RELATIONSHIP_25_FK2;
-
-drop index RELATIONSHIP_25_PK;
-
-drop table REVISIONES_VEHICULOS;
-
-drop index REVISION_VEHICULO_PK;
-
-drop table REVISION_VEHICULO;
-
-drop index SEGURO_PK;
-
-drop table SEGURO;
-
-drop index TIPO_DE_EMPLEADO_PK;
-
-drop table TIPO_DE_EMPLEADO;
-
-drop index TIPO_DE_SANGRE_PK;
-
-drop table TIPO_DE_SANGRE;
-
-drop index TITULO_PK;
-
-drop table TITULO;
-
-drop index RELATIONSHIP_22_FK;
-
-drop index RELATIONSHIP_2_FK;
-
-drop index RELATIONSHIP_1_FK;
-
-drop index VEHICULO_PK;
-
-drop table VEHICULO;
 
 /*==============================================================*/
 /* Table: ALQUILER                                              */
@@ -207,13 +96,13 @@ ID_CIUDAD
 create table CLIENTE (
    ID_CLIENTE           SERIAL               not null,
    ID_CIUDAD            INT4                 not null,
-   ID_TIPO_DE_SANGRE    INT4                 not null,
    ID_GENERO            INT4                 not null,
    ID_CREDITICIO        INT4                 not null,
    NOMBRES_CLIENTE      VARCHAR(30)          not null,
    APELLIDOS_CLIENTE    VARCHAR(30)          not null,
    CEDULA_CLIENTE       VARCHAR(10)          not null,
    FECHA_NACIMIENTO_CLIENTE DATE                 not null,
+   TIPO_DE_SANGRE       VARCHAR(3)           not null,
    TELEFONO_CLIENTE     VARCHAR(10)          not null,
    DIRECCION_CLIENTE    VARCHAR(60)          not null,
    EMAIL_CLIENTE        VARCHAR(30)          not null,
@@ -235,13 +124,6 @@ ID_CIUDAD
 );
 
 /*==============================================================*/
-/* Index: RELATIONSHIP_21_FK                                    */
-/*==============================================================*/
-create  index RELATIONSHIP_21_FK on CLIENTE (
-ID_TIPO_DE_SANGRE
-);
-
-/*==============================================================*/
 /* Index: RELATIONSHIP_19_FK                                    */
 /*==============================================================*/
 create  index RELATIONSHIP_19_FK on CLIENTE (
@@ -253,22 +135,6 @@ ID_GENERO
 /*==============================================================*/
 create  index RELATIONSHIP_23_FK on CLIENTE (
 ID_CREDITICIO
-);
-
-/*==============================================================*/
-/* Table: COLOR                                                 */
-/*==============================================================*/
-create table COLOR (
-   ID_COLOR             SERIAL               not null,
-   NOMBRE_COLOR         VARCHAR(20)          not null,
-   constraint PK_COLOR primary key (ID_COLOR)
-);
-
-/*==============================================================*/
-/* Index: COLOR_PK                                              */
-/*==============================================================*/
-create unique index COLOR_PK on COLOR (
-ID_COLOR
 );
 
 /*==============================================================*/
@@ -434,24 +300,24 @@ create table REVISIONES_VEHICULOS (
 );
 
 /*==============================================================*/
-/* Index: RELATIONSHIP_25_PK                                    */
+/* Index: REVISIONES_VEHICULOS_PK                               */
 /*==============================================================*/
-create unique index RELATIONSHIP_25_PK on REVISIONES_VEHICULOS (
+create unique index REVISIONES_VEHICULOS_PK on REVISIONES_VEHICULOS (
 ID_REVISION,
 ID_VEHICULO
 );
 
 /*==============================================================*/
-/* Index: RELATIONSHIP_25_FK2                                   */
+/* Index: REVISIONES_VEHICULOS2_FK                              */
 /*==============================================================*/
-create  index RELATIONSHIP_25_FK2 on REVISIONES_VEHICULOS (
+create  index REVISIONES_VEHICULOS2_FK on REVISIONES_VEHICULOS (
 ID_VEHICULO
 );
 
 /*==============================================================*/
-/* Index: RELATIONSHIP_27_FK                                    */
+/* Index: REVISIONES_VEHICULOS_FK                               */
 /*==============================================================*/
-create  index RELATIONSHIP_27_FK on REVISIONES_VEHICULOS (
+create  index REVISIONES_VEHICULOS_FK on REVISIONES_VEHICULOS (
 ID_REVISION
 );
 
@@ -505,22 +371,6 @@ ID_TIPO_DE_EMPLEADO
 );
 
 /*==============================================================*/
-/* Table: TIPO_DE_SANGRE                                        */
-/*==============================================================*/
-create table TIPO_DE_SANGRE (
-   ID_TIPO_DE_SANGRE    SERIAL               not null,
-   TIPO_DE_SANGRE       VARCHAR(3)           not null,
-   constraint PK_TIPO_DE_SANGRE primary key (ID_TIPO_DE_SANGRE)
-);
-
-/*==============================================================*/
-/* Index: TIPO_DE_SANGRE_PK                                     */
-/*==============================================================*/
-create unique index TIPO_DE_SANGRE_PK on TIPO_DE_SANGRE (
-ID_TIPO_DE_SANGRE
-);
-
-/*==============================================================*/
 /* Table: TITULO                                                */
 /*==============================================================*/
 create table TITULO (
@@ -543,10 +393,10 @@ create table VEHICULO (
    ID_VEHICULO          SERIAL               not null,
    ID_MARCA             INT4                 not null,
    ID_MODELO            INT4                 not null,
-   ID_COLOR             INT4                 not null,
    NUMERO_DE_PUERTAS_VEHICULO VARCHAR(10)          not null,
    CAPACIDAD_MALETERO_VEHICULO INT2                 not null,
    PLACA_VEHICULO       VARCHAR(7)           not null,
+   COLOR_VEHICULO       VARCHAR(15)          not null,
    constraint PK_VEHICULO primary key (ID_VEHICULO)
 );
 
@@ -569,13 +419,6 @@ ID_MARCA
 /*==============================================================*/
 create  index RELATIONSHIP_2_FK on VEHICULO (
 ID_MODELO
-);
-
-/*==============================================================*/
-/* Index: RELATIONSHIP_22_FK                                    */
-/*==============================================================*/
-create  index RELATIONSHIP_22_FK on VEHICULO (
-ID_COLOR
 );
 
 alter table ALQUILER
@@ -601,11 +444,6 @@ alter table ALQUILER
 alter table CLIENTE
    add constraint FK_CLIENTE_RELATIONS_GENERO foreign key (ID_GENERO)
       references GENERO (ID_GENERO)
-      on delete restrict on update restrict;
-
-alter table CLIENTE
-   add constraint FK_CLIENTE_RELATIONS_TIPO_DE_ foreign key (ID_TIPO_DE_SANGRE)
-      references TIPO_DE_SANGRE (ID_TIPO_DE_SANGRE)
       on delete restrict on update restrict;
 
 alter table CLIENTE
@@ -671,10 +509,5 @@ alter table VEHICULO
 alter table VEHICULO
    add constraint FK_VEHICULO_RELATIONS_MODELO_V foreign key (ID_MODELO)
       references MODELO_VEHICULO (ID_MODELO)
-      on delete restrict on update restrict;
-
-alter table VEHICULO
-   add constraint FK_VEHICULO_RELATIONS_COLOR foreign key (ID_COLOR)
-      references COLOR (ID_COLOR)
       on delete restrict on update restrict;
 
