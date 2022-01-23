@@ -1,7 +1,8 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 8                                 */
-/* Created on:     13/11/2021 21:50:49                          */
+/* Created on:     15/1/2022 20:30:02                           */
 /*==============================================================*/
+
 
 /*==============================================================*/
 /* Table: ALQUILER                                              */
@@ -397,6 +398,7 @@ create table VEHICULO (
    CAPACIDAD_MALETERO_VEHICULO INT2                 not null,
    PLACA_VEHICULO       VARCHAR(7)           not null,
    COLOR_VEHICULO       VARCHAR(15)          not null,
+   OCUPADO              BOOL                 null,
    constraint PK_VEHICULO primary key (ID_VEHICULO)
 );
 
